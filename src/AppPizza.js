@@ -13,7 +13,6 @@ let ingridients = [
 
 class AppPizza extends React.Component {
     state = {
-        text: 'Вы можете выбрать до 5 ингридиентов😔',
         checkState: [],
     }
 
@@ -40,9 +39,7 @@ class AppPizza extends React.Component {
                 onChange={this.isChecked.bind(this,index)}/>  {item.name}  </div>)}
                 
                 {this.state.checkState.length < 5 ? 
-                <p>Вы выбрали: <b>{this.state.checkState.length}</b> ингридиентов</p> :
-                <p>{this.state.text}</p>}
-                
+                <p>Вы выбрали: <b>{this.state.checkState.length}</b> ингридиентов</p> : <p>Вы можете выбрать до 5 ингридиентов😔</p>}
             </div>
         )
     }
