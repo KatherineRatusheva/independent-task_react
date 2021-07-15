@@ -1,30 +1,28 @@
 import React from 'react';
+import Ingredient from './Ingredient'
 
-let ingridients = [
-    {name: 'Pork'},
-    {name: 'Tomatoes'},
-    {name: 'Chili'},
-    {name: 'Cheese'},
-    {name: 'Onion'},
-    {name: 'Champignon'},
-    {name: 'Tomato sauce'},
-    {name: 'Olive'}
+const ingredients = [
+    {name: 'Pork', id: 0},
+    {name: 'Tomatoes', id: 1},
+    {name: 'Chili', id: 2},
+    {name: 'Cheese', id: 3},
+    {name: 'Onion', id: 4},
+    {name: 'Champignon', id: 5},
+    {name: 'Tomato sauce', id: 6},
+    {name: 'Olive', id: 7}
 ]
 
 class AppPizza extends React.Component {
+
     state = {
-        checkState: [],
+        counter: 0,
     }
 
-    isChecked = (id, event) => {
-        let isSelected = event.target.checked
-        let arrCheckbox = [...this.state.checkState, id]
+    setCounter = (value) => {
 
-        if(isSelected) {
-            if(this.state.checkState.length < 5){
-               this.setState({ checkState: arrCheckbox })
-            }
-        } else this.setState({ checkState: this.state.checkState.filter((item) => id !== item )})
+        if(value === true) {
+            this.setState({ counter: this.state.counter +1 })
+        } else this.setState({ counter: this.state.counter -1 })
 
     }
 
@@ -33,13 +31,11 @@ class AppPizza extends React.Component {
             <div>
                 <p>Выберете ингридиенты для пиццы:</p>
 
-                {ingridients.map((item, index) => 
+                {ingredients.map((item) => 
+                <Ingredient key={item.id} name={item.name} onClick={this.setCounter}/>
+                )}
 
-                <div key={index}><input type='checkbox' checked={this.state.checkState.indexOf(index)>=0} 
-                onChange={this.isChecked.bind(this,index)}/>  {item.name}  </div>)}
-                
-                {this.state.checkState.length < 5 ? 
-                <p>Вы выбрали: <b>{this.state.checkState.length}</b> ингридиентов</p> : <p>Вы можете выбрать до 5 ингридиентов😔</p>}
+                {this.state.counter === 5 && <p>Вы можете выбрать до 5 ингридиентов😔</p> }
             </div>
         )
     }
