@@ -1,7 +1,7 @@
 import React from 'react';
-import CheckboxPizza from './CheckboxPizza'
+import Ingredient from './Ingredient'
 
-const ingridients = [
+const ingredients = [
     {name: 'Pork', id: 0},
     {name: 'Tomatoes', id: 1},
     {name: 'Chili', id: 2},
@@ -18,11 +18,9 @@ class AppPizza extends React.Component {
         counter: 0,
     }
 
-    setChecked = (event) => {
-        const nameCheckbox = event.target.name
-        this.setState({  [nameCheckbox]: event.target.checked  })
+    setCounter = (value) => {
 
-        if(event.target.checked) {
+        if(value === true) {
             this.setState({ counter: this.state.counter +1 })
         } else this.setState({ counter: this.state.counter -1 })
 
@@ -32,7 +30,10 @@ class AppPizza extends React.Component {
         return (
             <div>
                 <p>Выберете ингридиенты для пиццы:</p>
-                <CheckboxPizza items={ingridients} onClick={this.setChecked}/>
+
+                {ingredients.map((item) => 
+                <Ingredient key={item.id} name={item.name} onClick={this.setCounter}/>
+                )}
 
                 {this.state.counter === 5 && <p>Вы можете выбрать до 5 ингридиентов😔</p> }
             </div>
